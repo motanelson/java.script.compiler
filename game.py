@@ -1,3 +1,6 @@
+import pygame
+import random
+import sys
 import time
 class games:
     #put you code here
@@ -10,10 +13,15 @@ class games:
         self.x=0
         self.y=0
         self.z=0
+        self.w=640
+        self.h=480
         self.ends=False
         self.camera=0
         self.enemy=[]
         self.enemycount=3
+        self.screens=None
+        self.caption="games"
+        self.bcolor=(0,0,0)
         self.debug=True
         self.log="log.txt"
 
@@ -22,7 +30,7 @@ class games:
         if self.debug:
             print(self.log)
             f1=open(self.log,"w")
-            f1.write("value\n")
+            f1.write(value+"\n")
             f1.close()
         else:
         
@@ -30,8 +38,6 @@ class games:
             f1.write(value+"\n")
             f1.close()
         self.debug=False
-        
-        
 
     def startvars(self):
         #put you code here
@@ -72,7 +78,7 @@ class games:
 
     def refreshscreen(self):
         #put you code here
-        time.sleep(3)
+        time.sleep(1)
 
     def checkgameover(self):
         #put you code here
@@ -84,6 +90,7 @@ class games:
         #you can chage list events order
         gamestart=True
         self.debugs("mainloop")
+        clock = pygame.time.Clock()
         while gamestart:
              self.drawmain()
              self.handlenemy()
@@ -94,15 +101,27 @@ class games:
              self.handlescore()
              self.refreshscreen()
              self.checkgameover()
-             self.debugs("---------------------\n")
+             pygame.display.flip()
+             # Limita o FPS
+             clock.tick(60)
+             for event in pygame.event.get():
+                 if event.type == pygame.QUIT:
+                      gamestart=False
              if self.ends:
                  break
 
     def main(self):
         #put you code here
+        pygame.init()
+        self.screens=pygame.display.set_mode((self.w,self.h))
+        pygame.display.set_caption(self.caption)
+        self.screens.fill(self.bcolor)
+        pygame.display.flip()
         self.startvars()
         self.startgame()
         self.mainloop()
+        pygame.quit()
+        sys.exit()
 
 
 games1=games()
