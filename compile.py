@@ -1,8 +1,12 @@
-print("\033c\033[47;31m\n give me the .js file to compile")
-a=input().strip()
+import os
+from tkinter import filedialog
+
+print("\033c\033[47;30m\n give me the .js file to compile")
+a=filedialog.askopenfile(title="give me the .js file to compile ? ",defaultextension="*.jx")
+a=a.name
 b=a.replace(".js","")
-print("\033[47;31m\n")
-c="hello\n"
+print("\033[47;30m\n")
+c="cafebabe\n"
 f1=open(a,"rb")
 f=f1.read()
 f1.close()
